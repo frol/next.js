@@ -4,6 +4,7 @@
   "description": "Your app description",
   "version": "1.0.0",
   "author": "Your name <email@domain>",
+  "homepage": "https://example.com",
   "main": "main/index.js",
   "scripts": {
     "start": "electron main",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
+    "babili-webpack-plugin": "^0.1.1",
     "electron-is-dev": "^0.1.2",
     "next": "^3.0.0-beta3",
     "react": "^15.5.4",

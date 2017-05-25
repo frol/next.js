@@ -1,5 +1,6 @@
-const { app } = require('electron')
+const { app, protocol } = require('electron')
 const { createServer } = require('http')
+const path = require('path')
 
 const dev = require('electron-is-dev')
 
@@ -25,6 +26,13 @@ module.exports = async () => {
     return server
   }
 
-  // in production resolve the promise as empty
-  return Promise.resolve()
+
+  // in production we register custom next:// protocol to serve static
+  return protocol.registerFileProtocol('next', (request, callback) => {
+    // request.url contains a full URL, so we remove the `next:///` prefix
+    const localPath = request.url.substr(8)
+    callback({path: path.join(__dirname, '..', 'build', localPath)})
+  }, (error) => {
+    if (error) console.error('Failed to register next:// protocol')
+  })
 }
